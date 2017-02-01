@@ -1,0 +1,27 @@
+{
+  "name": "preact-starter",
+  "version": "0.1.0",
+  "description": "A simple preact boilerplate, using webpack and typescript.",
+  "repository": "https://github.com/YourName/YourRepo",
+  "author": "NAME <EMAIL@DOMAIN>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "dependencies": {
+    "preact": "^7.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.4",
+    "awesome-typescript-loader": "^3.0.0-beta.18",
+    "css-loader": "^0.26.1",
+    "node-sass": "^4.5.0",
+    "preact-svg-loader": "^0.1.0",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "typescript": "^2.1.5",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^1.16.3"
+  }
+}
