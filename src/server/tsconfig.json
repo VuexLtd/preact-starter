@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es2015",
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "outDir": "../../dist/server",
+        "lib": [
+            "dom",
+            "es2015",
+            "es2016.array.include"
+        ],
+        "typeRoots": [
+            "../../node_modules/@types"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "*": ["../../types/*"]
+        }
+    }
+}

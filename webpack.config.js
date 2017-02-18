@@ -1,23 +1,34 @@
 const webpack = require('webpack');
 const { resolve } = require('path');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const StatsWriterPlugin = require("webpack-stats-plugin").StatsWriterPlugin;
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const paths = {
     dist: resolve(__dirname, 'dist'),
     src: resolve(__dirname, 'src'),
+    app: resolve(__dirname, 'src/app'),
 };
 
+const plugins = [];
+
+let devtool = 'inline-source-map';
+
+if (process.env.NODE_ENV === 'production') {
+    devtool = 'source-map';
+    plugins.push(
+        new StatsWriterPlugin()
+    );
+}
+
 module.exports = {
-    entry: './src/index.tsx',
-    devtool: 'inline-source-map',
+    entry: resolve(paths.app, 'index.tsx'),
+    devtool,
     output: {
         filename: 'bundle.js',
         path: paths.dist,
         publicPath: '/',
-    },
-    devServer: {
-        hot: true,
-        contentBase: paths.src,
-        publicPath: '/',
+        libraryTarget: 'umd',
     },
     resolve: {
         extensions: ['.js', '.json', '.ts', '.tsx'],
@@ -26,23 +37,40 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                include: [paths.src],
-                use: ['awesome-typescript-loader'],
+                include: [paths.app],
+                use: [
+                    {
+                        loader: 'awesome-typescript-loader',
+                        options: {
+                            configFileName: resolve(paths.app, 'tsconfig.json'),
+                        },
+                    },
+                ],
             },
             {
                 test: /\.scss$/,
-                include: [paths.src],
-                use: ['style-loader', 'css-loader', 'sass-loader'],
+                include: [paths.app],
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'sass-loader'],
+                })
             },
             {
                 test: /\.svg$/,
-                include: [paths.src],
+                include: [paths.app],
                 use: ['preact-svg-loader'],
             }
         ],
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin(),
+        new ExtractTextPlugin("styles.css"),
+        new CopyWebpackPlugin([
+            {
+                from: 'src/index.tmpl.html',
+                to: 'index.tmpl.html',
+            },
+        ]),
+
+        ...plugins,
     ],
 }

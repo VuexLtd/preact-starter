@@ -7,15 +7,11 @@
         "sourceMap": true,
         "jsx": "react",
         "jsxFactory": "h",
-        "outDir": "dist",
+        "outDir": "../../dist/app",
         "lib": [
             "dom",
             "es2015",
             "es2016.array.include"
         ]
-    },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+    }
 }

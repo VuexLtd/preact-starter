@@ -6,22 +6,40 @@
   "author": "NAME <EMAIL@DOMAIN>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server"
+    "build": "npm run build && npm run build:server",
+    "build:prod": "cross-env NODE_ENV=production webpack",
+    "start": "ts-node -P src/server src/server/index.ts",
+    "start:prod": "cross-env NODE_ENV=production DIST_DIR=./dist/ ts-node -P src/server src/server/index.ts",
+    "build:server": "cd src/server && tsc"
   },
   "dependencies": {
+    "@types/memory-fs": "^0.3.0",
+    "koa-mount": "^2.0.0",
+    "koa-static": "^3.0.0",
     "preact": "^7.1.0"
   },
   "devDependencies": {
+    "@types/koa": "^2.0.37",
     "@types/node": "^7.0.4",
+    "@types/webpack-dev-middleware": "^1.9.1",
     "awesome-typescript-loader": "^3.0.3",
+    "babel-runtime": "^6.22.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "2.0.0-rc.3",
+    "koa": "next",
+    "koa-webpack": "^0.2.1",
     "node-sass": "^4.5.0",
+    "preact-render-to-string": "^3.5.0",
     "preact-svg-loader": "^0.1.0",
     "sass-loader": "^5.0.0",
     "style-loader": "^0.13.1",
+    "ts-node": "^2.1.0",
     "typescript": "^2.1.5",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-dev-middleware": "^1.10.0",
+    "webpack-dev-server": "^2.3.0",
+    "webpack-stats-plugin": "^0.1.4"
   }
 }
