@@ -17,7 +17,13 @@ let devtool = 'inline-source-map';
 if (process.env.NODE_ENV === 'production') {
     devtool = 'source-map';
     plugins.push(
-        new StatsWriterPlugin()
+        new StatsWriterPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            comments: false,
+            mangle: { screw_ie8: true },
+            compress: { screw_ie8: true, warnings: false },
+            sourceMap: true
+        })
     );
 }
 
