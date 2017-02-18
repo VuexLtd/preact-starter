@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { Compiler, Stats } from 'webpack';
-import * as webpack from 'koa-webpack';
+import * as webpack from '@vuex/koa-webpack';
 import MemoryFileSystem = require('memory-fs');
 
 const wpConfig = require('../../webpack.config.js');
